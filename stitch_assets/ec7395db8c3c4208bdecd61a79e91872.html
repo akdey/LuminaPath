@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "text-primary": "#0F172A",
+                        "outline": "#737686",
+                        "on-surface": "#191b23",
+                        "inverse-primary": "#b4c5ff",
+                        "tertiary-fixed": "#ffdbcd",
+                        "surface": "#faf8ff",
+                        "on-primary-fixed": "#00174b",
+                        "text-secondary": "#475569",
+                        "on-tertiary-fixed": "#360f00",
+                        "surface-variant": "#e1e2ed",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "outline-variant": "#c3c6d7",
+                        "error-gap": "#EF4444",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "background": "#faf8ff",
+                        "surface-bright": "#faf8ff",
+                        "surface-background": "#F8FAFC",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-background": "#191b23",
+                        "on-tertiary-container": "#ffede6",
+                        "secondary-fixed": "#6ffbbe",
+                        "surface-container-high": "#e7e7f3",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#dbe1ff",
+                        "secondary-container": "#6cf8bb",
+                        "tertiary": "#943700",
+                        "on-secondary-fixed-variant": "#005236",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f3f3fe",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-primary-container": "#eeefff",
+                        "secondary": "#006c49",
+                        "surface-container-highest": "#e1e2ed",
+                        "primary": "#004ac6",
+                        "tertiary-container": "#bc4800",
+                        "on-surface-variant": "#434655",
+                        "primary-container": "#2563eb",
+                        "on-secondary-fixed": "#002113",
+                        "error": "#ba1a1a",
+                        "border-subtle": "#E2E8F0",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f0f0fb",
+                        "surface-dim": "#d9d9e5",
+                        "on-tertiary": "#ffffff",
+                        "accent-ai": "#8B5CF6",
+                        "surface-container": "#ededf9",
+                        "surface-card": "#FFFFFF",
+                        "inverse-surface": "#2e3039",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#00714d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "64px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "container-max": "1280px",
+                        "card-padding": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Work Sans"],
+                        "h2": ["Lexend"],
+                        "h1": ["Lexend"],
+                        "code": ["monospace"],
+                        "body-lg": ["Work Sans"],
+                        "h3": ["Lexend"],
+                        "body-md": ["Work Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "h2": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "h1": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "code": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #F8FAFC;
+        }
+        .progress-bar-shine {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            background-size: 200% 100%;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-text-primary antialiased pb-24 pt-16">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 h-16 bg-slate-50 border-b border-slate-200">
+<div class="flex justify-between items-center w-full px-4 max-w-7xl mx-auto h-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-blue-600" data-icon="school">school</span>
+<h1 class="font-lexend text-xl font-bold tracking-tight text-slate-900">Lumina Path</h1>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-slate-200 active:scale-95 transition-transform duration-150">
+<img alt="User profile photo" data-alt="high quality 3D avatar profile picture of a young professional with clean academic background style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFz82OC9mKtPX0tr_Nj_HBKoKiGD-Mjtm8o-8bnSSi-Px8en5CJM1CCIJF_tDpRNv4yRKwxSNPWbCmJKZY5sC9kXLQv_GriCEgPks_mRmgu1ifWzVvPx3_PEm5HAvBlPnk_vo1Si57YFKgS-zpu7hCpEWPi5evv9AwCSHsACFcPbdPrhX7zVxYWM7Kk_s_1gU20TYIJXllCf5NETAncb1E5PKkHcfSxCZtuGrmQjn7we4YW5WYLlD23ebylX-RYuxx4cMAa50RDU8"/>
+</div>
+</div>
+</header>
+<main class="max-w-[800px] mx-auto px-4 py-8">
+<!-- Progress Indicator -->
+<section class="mb-10">
+<div class="flex justify-between items-end mb-2">
+<span class="font-lexend font-label-sm text-label-sm text-primary uppercase">Knowledge Validation</span>
+<span class="font-lexend font-label-sm text-label-sm text-text-secondary">Question 3 of 10</span>
+</div>
+<div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+<div class="w-[30%] h-full bg-primary-container relative">
+<div class="absolute inset-0 progress-bar-shine"></div>
+</div>
+</div>
+</section>
+<!-- Question Section -->
+<section class="mb-gutter">
+<div class="bg-surface-card border border-border-subtle p-card-padding rounded-xl mb-base">
+<h2 class="font-h3 text-h3 text-text-primary">How does the "Transformer" architecture differ from traditional Recurrent Neural Networks (RNNs) in processing sequential data?</h2>
+</div>
+</section>
+<!-- Answer Options -->
+<section class="space-y-4 mb-section-gap">
+<!-- Option A -->
+<button class="w-full text-left bg-surface-card border-2 border-border-subtle p-card-padding rounded-xl active:scale-95 transition-all duration-200 hover:border-primary-container focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center font-lexend font-bold text-text-secondary group-focus:bg-primary-container group-focus:text-white transition-colors">A</div>
+<p class="font-body-md text-body-md text-text-secondary group-focus:text-text-primary">Transformers process data sequentially one element at a time, similar to RNNs but with larger memory buffers.</p>
+</div>
+</button>
+<!-- Option B (Selected/Active State Example) -->
+<button class="w-full text-left bg-primary-container/5 border-2 border-primary-container p-card-padding rounded-xl active:scale-95 transition-all duration-200 group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center font-lexend font-bold text-white">B</div>
+<p class="font-body-md text-body-md text-text-primary">Transformers utilize self-attention mechanisms to process entire sequences in parallel rather than step-by-step.</p>
+</div>
+</button>
+<!-- Option C -->
+<button class="w-full text-left bg-surface-card border-2 border-border-subtle p-card-padding rounded-xl active:scale-95 transition-all duration-200 hover:border-primary-container focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center font-lexend font-bold text-text-secondary group-focus:bg-primary-container group-focus:text-white transition-colors">C</div>
+<p class="font-body-md text-body-md text-text-secondary group-focus:text-text-primary">Transformers are limited to processing image data and cannot handle natural language sequences.</p>
+</div>
+</button>
+<!-- Option D -->
+<button class="w-full text-left bg-surface-card border-2 border-border-subtle p-card-padding rounded-xl active:scale-95 transition-all duration-200 hover:border-primary-container focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center font-lexend font-bold text-text-secondary group-focus:bg-primary-container group-focus:text-white transition-colors">D</div>
+<p class="font-body-md text-body-md text-text-secondary group-focus:text-text-primary">Transformers require a fixed-length input and cannot adapt to varying sequence lengths.</p>
+</div>
+</button>
+</section>
+<!-- Digital Tutor Tip -->
+<section class="bg-blue-50/50 border border-blue-100 p-card-padding rounded-xl mb-base">
+<div class="flex items-start gap-3">
+<div class="mt-1">
+<span class="material-symbols-outlined text-blue-600" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+</div>
+<div>
+<h4 class="font-lexend font-bold text-blue-900 mb-1">Digital Tutor Tip</h4>
+<p class="text-slate-600 text-sm leading-relaxed">Think about the concept of "Parallelization." RNNs struggle with long-range dependencies because they process words one by one. The Transformer's breakthrough was looking at everything at once!</p>
+</div>
+</div>
+</section>
+<!-- Action Button Container -->
+<div class="mt-8 mb-12">
+<button class="w-full bg-primary-container text-white font-lexend font-bold py-4 rounded-xl shadow-lg shadow-blue-200 active:scale-95 transition-transform">
+                Submit Answer
+            </button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 h-20 bg-white border-t border-slate-200 rounded-t-lg shadow-lg">
+<div class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-safe h-20">
+<a class="flex flex-col items-center justify-center text-slate-500 px-3 py-1.5 transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-lexend text-[10px] uppercase tracking-wider font-semibold">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 px-3 py-1.5 transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="route">route</span>
+<span class="font-lexend text-[10px] uppercase tracking-wider font-semibold">Roadmap</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-blue-50 text-blue-600 rounded-lg px-3 py-1.5 transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="quiz" style="font-variation-settings: 'FILL' 1;">quiz</span>
+<span class="font-lexend text-[10px] uppercase tracking-wider font-semibold">Quiz</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 px-3 py-1.5 transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-lexend text-[10px] uppercase tracking-wider font-semibold">Reports</span>
+</a>
+</div>
+</nav>
+</body></html>
