@@ -1,6 +1,12 @@
+# Environment files
+.env
 backend/.env
+backend/.env.*
+!backend/.env.example
+
+# Python
 *.pyc
 __pycache__/
+
+# Databases
 *.db
-.env
-.env.*
