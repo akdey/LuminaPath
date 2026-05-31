@@ -10,3 +10,5 @@ __pycache__/
 
 # Databases
 *.db
+!data/lumina.db
+!backend/lumina.db
