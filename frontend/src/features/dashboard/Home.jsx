@@ -6,6 +6,7 @@ import { generatePath, getDashboardData } from '../../services/api';
 const Home = () => {
   const [topic, setTopic] = useState('');
   const [loading, setLoading] = useState(false);
+  const [generateError, setGenerateError] = useState('');
   const [dashboardData, setDashboardData] = useState({ active_roadmaps: [], weak_concepts: [] });
   const [dashboardLoading, setDashboardLoading] = useState(true);
   const navigate = useNavigate();
@@ -29,12 +30,14 @@ const Home = () => {
     const targetTopic = customTopic || topic;
     if (!targetTopic.trim()) return;
     setTopic(targetTopic);
+    setGenerateError('');
     setLoading(true);
     try {
       const data = await generatePath(targetTopic);
       navigate(`/roadmap?id=${data.roadmap_id}`);
     } catch (err) {
-      console.error(err);
+      const message = err?.response?.data?.detail || 'Something went wrong. Please try again.';
+      setGenerateError(message);
       setLoading(false);
     }
   };
@@ -81,6 +84,14 @@ const Home = () => {
                 <div className="w-2 h-2 rounded-full bg-primary/40"></div>
               </div>
               <p className="text-[10px] font-bold text-primary/70 uppercase tracking-widest">Lumina AI is analyzing the curriculum...</p>
+            </div>
+          )}
+
+          {/* Error Banner */}
+          {generateError && !loading && (
+            <div className="mt-6 max-w-2xl mx-auto flex items-start gap-3 bg-red-50 border border-red-200 text-red-700 rounded-xl px-5 py-4 text-sm font-medium animate-fade-in">
+              <span className="text-red-400 mt-0.5">⚠</span>
+              <span>{generateError}</span>
             </div>
           )}
         </section>
@@ -133,7 +144,7 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
             {/* Main Featured Card */}
-            <div className="md:col-span-8 bg-white border border-border-subtle rounded-2xl overflow-hidden group cursor-pointer relative hover:border-primary transition-colors flex flex-col shadow-sm">
+            <div onClick={() => handleGenerate(null, 'React & Design Systems')} className="md:col-span-8 bg-white border border-border-subtle rounded-2xl overflow-hidden group cursor-pointer relative hover:border-primary transition-colors flex flex-col shadow-sm">
               <div className="h-48 overflow-hidden relative">
                 <img alt="Web Development" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeIvA0BGtRZcYlM2rZkNkBsTit_WyVqZZWNEt868I9eo9LmCXRcgSDXTUWDy_kib0NFAfLAE_1jirhVS-SbUaU48RIcTNaMZn0WDtO718jgjtyuDaiHlrwYY_tgD42uE1PiW96xbCmWI46arOVtorl3Sa5Bm_typgZ3OxIvfBBci8yQ3UehN5vX7OLhbWpxcP1nJBcs9vvm0bzG6QS_-nkTOzwqOC94E1U2BAP9KzhsUrzzJEHr_NrCHQ7cDy6P_rxoADYAai7tdU"/>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -162,7 +173,7 @@ const Home = () => {
 
             {/* Sidebar Cards */}
             <div className="md:col-span-4 flex flex-col gap-6">
-              <div className="flex-1 bg-white border border-border-subtle rounded-2xl p-6 hover:border-accent-ai transition-colors cursor-pointer flex flex-col justify-center shadow-sm">
+              <div onClick={() => handleGenerate(null, 'Deep Learning Basics')} className="flex-1 bg-white border border-border-subtle rounded-2xl p-6 hover:border-accent-ai transition-colors cursor-pointer flex flex-col justify-center shadow-sm">
                 <div className="w-12 h-12 bg-accent-ai/10 rounded-xl flex items-center justify-center text-accent-ai mb-4">
                   <BrainCircuit className="w-6 h-6" />
                 </div>
@@ -170,7 +181,7 @@ const Home = () => {
                 <p className="text-xs text-text-secondary">Explore the foundation of neural networks.</p>
               </div>
 
-              <div className="flex-1 bg-white border border-border-subtle rounded-2xl p-6 hover:border-secondary transition-colors cursor-pointer flex flex-col justify-center shadow-sm">
+              <div onClick={() => handleGenerate(null, 'Quantitative Finance')} className="flex-1 bg-white border border-border-subtle rounded-2xl p-6 hover:border-secondary transition-colors cursor-pointer flex flex-col justify-center shadow-sm">
                 <div className="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center text-secondary mb-4">
                   <LineChart className="w-6 h-6" />
                 </div>

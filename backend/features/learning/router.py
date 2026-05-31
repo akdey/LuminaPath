@@ -24,11 +24,19 @@ class PathResponse(BaseModel):
 @router.post("/generate-path", response_model=PathResponse)
 async def generate_path(request: TopicRequest, db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
     tasks_data = await generate_learning_path(request.topic)
+
+    # Agent signals that the topic is not educational
+    if isinstance(tasks_data, dict) and tasks_data.get("error") == "non_educational_topic":
+        raise HTTPException(
+            status_code=400,
+            detail="This topic doesn't appear to be a learning subject. Please enter an educational topic such as a programming language, science field, or professional skill."
+        )
+
     if not tasks_data:
         raise HTTPException(status_code=500, detail="Failed to generate learning path")
-    
+
     roadmap = crud.create_roadmap(db, current_user["session_id"], request.topic, tasks_data)
-    
+
     tasks = []
     for t in roadmap.tasks:
         tasks.append({
@@ -70,17 +78,24 @@ class DashboardResponse(BaseModel):
 
 @router.get("/dashboard", response_model=DashboardResponse)
 def get_dashboard(db: Session = Depends(get_db), current_user: dict = Depends(get_current_user)):
-    session_id = current_user["session_id"]
-    
-    # Get all roadmaps for the user's session, ordered by most recently created
-    roadmaps = db.query(Roadmap).filter(Roadmap.session_id == session_id).order_by(desc(Roadmap.created_at)).all()
-    
+    user_id = current_user["user"].id
+
+    # Get all roadmaps belonging to this user across ALL their sessions,
+    # ordered by most recently created. This ensures data persists after logout/login.
+    roadmaps = (
+        db.query(Roadmap)
+        .join(UserSession, Roadmap.session_id == UserSession.id)
+        .filter(UserSession.user_id == user_id)
+        .order_by(desc(Roadmap.created_at))
+        .all()
+    )
+
     active_roadmaps = []
     for r in roadmaps:
         completed_tasks = sum(1 for t in r.tasks if t.completed_at)
         total_tasks = r.steps_count or len(r.tasks)
         progress = int((completed_tasks / total_tasks) * 100) if total_tasks > 0 else 0
-        
+
         # Check if the last task has a submitted assessment
         has_completed_assessment = False
         last_task_id = None
@@ -92,7 +107,7 @@ def get_dashboard(db: Session = Depends(get_db), current_user: dict = Depends(ge
                 if assessment.submitted_at:
                     has_completed_assessment = True
                     break
-        
+
         active_roadmaps.append({
             "id": r.id,
             "topic_name": r.topic_name,
@@ -103,24 +118,30 @@ def get_dashboard(db: Session = Depends(get_db), current_user: dict = Depends(ge
             "has_completed_assessment": has_completed_assessment,
             "last_task_id": last_task_id
         })
-        
-    # Aggregate weak concepts from the user's past gap analyses
-    weak_concepts = set()
-    
-    # We can join GapAnalysis -> Assessment -> Task -> Roadmap -> UserSession
-    # But since assessments are tied to tasks, let's just query gap analyses where the assessment's task's roadmap's session matches
-    gap_analyses = db.query(GapAnalysis).join(Assessment).join(Assessment.task).join(Task.roadmap).filter(Roadmap.session_id == session_id).all()
-    
+
+    # Aggregate weak concepts from the user's past gap analyses across all sessions
     import json
+    weak_concepts = set()
+
+    gap_analyses = (
+        db.query(GapAnalysis)
+        .join(Assessment)
+        .join(Assessment.task)
+        .join(Task.roadmap)
+        .join(UserSession, Roadmap.session_id == UserSession.id)
+        .filter(UserSession.user_id == user_id)
+        .all()
+    )
+
     for gap in gap_analyses:
         if gap.weak_concepts_json:
             try:
                 concepts = json.loads(gap.weak_concepts_json)
                 for c in concepts:
                     weak_concepts.add(c)
-            except:
+            except Exception:
                 pass
-                
+
     return {
         "active_roadmaps": active_roadmaps,
         "weak_concepts": list(weak_concepts)[:10]  # Limit to top 10 unique weak concepts

@@ -20,11 +20,15 @@ def search_youtube(query: str, max_results: int = 3) -> str:
         
     try:
         youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
+        # Append educational keywords so the API prioritises tutorials/lectures over general content
+        educational_query = f"{query} tutorial OR course OR lecture OR explained"
         request = youtube.search().list(
             part="snippet",
             maxResults=max_results,
-            q=query,
-            type="video"
+            q=educational_query,
+            type="video",
+            relevanceLanguage="en",
+            safeSearch="strict"
         )
         response = request.execute()
         
